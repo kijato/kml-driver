@@ -139,19 +139,10 @@ public class KMLReader extends DefaultHandler implements JUMPReader {
     s += "</JCSGMLInputTemplate>";
 
     GMLInputTemplate template = new GMLInputTemplate();
-    ByteArrayInputStream is = null;
-    try {
-      is = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-      template.load(new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
+    try (ByteArrayInputStream is = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8))) {
+      template.load(is);
     } catch (Exception ex) {
       ex.printStackTrace();
-    } finally {
-      if (is != null) {
-        try {
-          is.close();
-        } catch (IOException ioe) {
-        }
-      }
     }
 
     return template;
@@ -210,7 +201,9 @@ public class KMLReader extends DefaultHandler implements JUMPReader {
     }
 
     fc = read(is, inputFname);
-    is.close();
+    if (is != null) {
+      is.close();
+    }
     //Envelope env = fc.getEnvelope();
     return fc;
   }
@@ -396,7 +389,7 @@ public class KMLReader extends DefaultHandler implements JUMPReader {
           // LinearRing[] lrs = new LinearRing[1];
           LinearRing[] lrs = new LinearRing[0];
 
-          lrs = (LinearRing[]) innerBoundaries.toArray(lrs);
+          lrs = innerBoundaries.toArray(lrs);
           polygon = geometryFactory.createPolygon(outerBoundary, lrs);
           geometry.add(polygon);
         } else if (qName.compareToIgnoreCase("linestring") == 0) {
@@ -417,12 +410,7 @@ public class KMLReader extends DefaultHandler implements JUMPReader {
 
           // create a feature and put it inside the featurecollection
           if (currentFeature.getGeometry() == null) {
-            Geometry g = currentFeature.getGeometry();
-
-            if (g != null) {
-              System.out.println(g.toString());
-            }
-
+            Geometry g = null;
             throw new ParseException("no geometry specified in feature");
           }
 
@@ -778,25 +766,6 @@ public class KMLReader extends DefaultHandler implements JUMPReader {
       stokenizerPoint = null;
     }
   }
-
-  // /**
-  // * parses the given srs text and returns the SRID
-  // * @param srsName srsName of the type "EPSG:<number>"
-  // * @return srid or 0 if there is a problem
-  // */
-  // private int parseSRID(String srsName) {
-  // try{
-  // int semicolonLoc = srsName.lastIndexOf(':');
-  // if (semicolonLoc == -1)
-  // return 0;
-  // srsName = srsName.substring(semicolonLoc+1).trim();
-  // return Integer.parseInt(srsName);
-  // }
-  // catch (Exception e)
-  // {
-  // return 0;
-  // }
-  // }
 
   private void setDestinationProjection(final int zoneInt,
       final boolean zoneSouth, final double centralMeridian) {

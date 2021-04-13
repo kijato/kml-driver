@@ -35,7 +35,7 @@ public class KMLDriverConfiguration extends Extension {
 
   private static I18N _I18N = I18N.getInstance("com.isa.jump.plugin");
 
-  public void configure(PlugInContext context) throws Exception {
+  public void configure(PlugInContext context) {
     new KMLDataSourceQueryChooserInstallerPlugIn().initialize(context);
   }
 

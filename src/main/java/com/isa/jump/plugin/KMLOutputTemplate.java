@@ -111,7 +111,6 @@ public class KMLOutputTemplate {
         String token;
         String textAccum;
         boolean justFoundTag = false;
-        //BufferedReader buffRead = new BufferedReader(r);
         InputStreamReader isr = new InputStreamReader(inputStream);
         BufferedReader buffRead = new BufferedReader(isr);
 
@@ -223,38 +222,42 @@ public class KMLOutputTemplate {
      * For debugging - return a human readable version of the parsed outputtemplate
      */
     public String asString() {
-        String result;
-        int t;
 
-        result = headerText + "\n--------------------------------------\n";
+        StringBuilder result = new StringBuilder(headerText)
+            .append("\n--------------------------------------\n");
 
-        for (t = 0; t < featureText.size(); t++) {
-            result = result + featureText.get(t) + "<%" + codingText.get(t) +
-                "%>";
+        for (int t = 0; t < featureText.size(); t++) {
+            result
+                .append(featureText.get(t))
+                .append("<%")
+                .append(codingText.get(t))
+                .append("%>");
         }
 
-        result = result + featureTextfooter;
-        result = result + "\n--------------------------------------\n";
-        result = result + footerText;
+        result
+            .append(featureTextfooter)
+            .append("\n--------------------------------------\n")
+            .append(footerText);
 
-        return result;
+        return result.toString();
     }
 
     public String asText() {
-        String result;
-        int t;
 
-        result = headerText;
+        StringBuilder result = new StringBuilder(headerText);
 
-        for (t = 0; t < featureText.size(); t++) {
-            result = result + featureText.get(t) + "<" + codingText.get(t) +
-                ">";
+        for (int t = 0; t < featureText.size(); t++) {
+            result
+                .append(featureText.get(t))
+                .append("<")
+                .append(codingText.get(t))
+                .append(">");
         }
 
-        result = result + featureTextfooter;
-        result = result + footerText;
+        result.append(featureTextfooter);
+        result.append(footerText);
 
-        return result;
+        return result.toString();
     }
 
     /**
@@ -264,7 +267,7 @@ public class KMLOutputTemplate {
     private boolean validop(String op) {
         String op2;
 
-        op2 = new String(op);
+        op2 = op;
         op2 = op2.trim();
         op2 = op2.toLowerCase();
 
