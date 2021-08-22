@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.openjump</groupId>
     <artifactId>kml-driver</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <name>kml-driver</name>
     <description>Driver for KML file format</description>
 
@@ -17,20 +17,26 @@
         <xerces.version>2.12.1</xerces.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>ojrepo</id>
+            <name>OpenJUMP Snapshot Repository</name>
+            <url>https://ojrepo.soldin.de/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+
+        <dependency>
+            <groupId>org.openjump</groupId>
+            <artifactId>OpenJUMP</artifactId>
+            <version>2.0-main-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
             <version>${jts.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjump</groupId>
-            <artifactId>OpenJUMP</artifactId>
-            <version>2.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/OpenJUMP-20210412-b68329e.jar</systemPath>
         </dependency>
 
         <dependency>
