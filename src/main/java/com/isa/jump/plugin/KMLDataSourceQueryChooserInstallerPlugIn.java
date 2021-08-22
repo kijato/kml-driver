@@ -57,14 +57,16 @@ import com.vividsolutions.jump.workbench.ui.MultiInputDialog;
  */
 public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
 
-  private static final I18N _I18N = I18N.getInstance("com.isa.jump.plugin");
+  private static final I18N i18n = I18N.getInstance("com.isa.jump.plugin");
 
-  private static final String MAP_PROJECTION = _I18N.getText("map-projection");
-  private static final String CHOOSE_MAP_PROJECTION = _I18N
-      .getText("choose-map-projection");
-  private static final String FIRST_CHOICE = _I18N.getText("lat-long");
-  private static final String MISSING_RESOURCE = _I18N
-      .getText("missing-projection-file");
+  private static final String MAP_PROJECTION =
+      i18n.get("map-projection");
+  private static final String CHOOSE_MAP_PROJECTION =
+      i18n.get("choose-map-projection");
+  private static final String FIRST_CHOICE =
+      i18n.get("lat-long");
+  private static final String MISSING_RESOURCE =
+      i18n.get("missing-projection-file");
 
   public static String KMLDESCRIPTION_WGS84 = "KML 2.0";
   public static String KMLDESCRIPTION_UTM = "KML 2.0 (project to UTM)";
