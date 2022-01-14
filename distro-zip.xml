@@ -27,4 +27,13 @@
       </excludes>
     </dependencySet>
   </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>${project.build.outputDirectory}</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>*.pjl</include>
+      </includes>
+    </fileSet>
+  </fileSets>
 </assembly>

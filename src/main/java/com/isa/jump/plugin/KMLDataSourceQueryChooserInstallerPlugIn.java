@@ -73,8 +73,7 @@ public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
   public static String COMPRESSED = "Compressed ";
 
   private PlugInContext context;
-  private String projectionPath;
-  private boolean projectionPathExists = false;
+  private File projectionFile = null;
 
   private boolean getUTM = true;
 
@@ -133,16 +132,9 @@ public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
               }
             });
 
-    projectionPathExists = false;
-    File pluginDir = context.getWorkbenchContext().getWorkbench()
-        .getPlugInManager().getPlugInDirectory();
-    if (pluginDir != null) {
-      projectionPath = pluginDir.getPath();
-      projectionPath = projectionPath + File.separator + "kml" + File.separator
-          + "ProjectStringsList.pjl";
-      if (new File(projectionPath).exists())
-        projectionPathExists = true;
-    }
+    projectionFile = context.getWorkbenchContext().getWorkbench()
+        .getPlugInManager().findFileOrFolderInExtensionDirs("kml-ProjectionStringsList.pjl");
+
   }
 
   private HashMap<String,Object> setUTMParameters(HashMap<String,Object> properties) {
@@ -207,7 +199,7 @@ public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
         context.getWorkbenchFrame(), MAP_PROJECTION, true);
     Collection<String> methodNames = new ArrayList<>();
     methodNames.add(FIRST_CHOICE);
-    if (projectionPathExists) {
+    if (projectionFile != null) {
       for (int i = 1; i <= 60; i++) {
         methodNames.add(i + "N");
         methodNames.add(i + "S");
@@ -227,7 +219,7 @@ public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
         properties.put("Central_Meridian", "");
       } else {
         properties.put("UTM_Zone", UTMZone);
-        String centralMeridian = new UTM_Projection_List(projectionPath)
+        String centralMeridian = new UTM_Projection_List(projectionFile)
             .getCentralMeridian(UTMZone);
         properties.put("Central_Meridian", centralMeridian);
       }

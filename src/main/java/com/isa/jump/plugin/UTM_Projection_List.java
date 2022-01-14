@@ -38,24 +38,25 @@ import java.util.List;
 import java.util.ArrayList;
 import com.vividsolutions.jump.util.FileUtil;
 import java.io.IOException;
+
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class UTM_Projection_List {
 
   private final ArrayList<UTM_Projection> UTM_Projections;
 
-  public UTM_Projection_List(String fileName) {
+  public UTM_Projection_List(File file) {
     UTM_Projections = new ArrayList<>();
 
-    if (new File(fileName).exists()) {
+    if (file.exists()) {
       try {
-        List<String> projectionStrings = FileUtil.getContents(fileName);
+        List<String> projectionStrings = FileUtil.getContents(file.toURI());
         for (String projectionString : projectionStrings) {
           UTM_Projections.add(new UTM_Projection(projectionString));
         }
       } catch (IOException ex) {
-        ex.printStackTrace();
-        // ("Could not read: " + fileName + " due to: " + ex.getMessage());
+        Logger.error(ex);
       }
     }
   }
