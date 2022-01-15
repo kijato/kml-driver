@@ -31,7 +31,7 @@
  * (850)862-7321
  */
 
-package com.isa.jump.plugin;
+package com.isa.jump.kml;
 
 import java.io.File;
 import java.util.List;

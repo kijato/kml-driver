@@ -31,7 +31,7 @@
  * (850)862-7321
  */
 
-package com.isa.jump.plugin;
+package com.isa.jump.kml;
 
 import com.vividsolutions.jump.coordsys.Reprojector;
 import com.vividsolutions.jump.coordsys.CoordinateSystem;

@@ -31,7 +31,7 @@
  * (850)862-7321
  */
 
-package com.isa.jump.plugin;
+package com.isa.jump.kml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +41,6 @@ import java.util.Map;
 
 import javax.swing.JFileChooser;
 
-import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.datasource.DataSourceQueryChooserManager;
 import com.vividsolutions.jump.workbench.datasource.InstallStandardDataSourceQueryChoosersPlugIn;
 import com.vividsolutions.jump.workbench.datasource.LoadFileDataSourceQueryChooser;
@@ -57,16 +56,16 @@ import com.vividsolutions.jump.workbench.ui.MultiInputDialog;
  */
 public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
 
-  private static final I18N i18n = I18N.getInstance("com.isa.jump.plugin");
-
+  private static final String PROJECTION_FILE_NAME  = "kml-ProjectionStringsList.pjl";
+  
   private static final String MAP_PROJECTION =
-      i18n.get("map-projection");
+      KMLDriverConfiguration.I18N.get("map-projection");
   private static final String CHOOSE_MAP_PROJECTION =
-      i18n.get("choose-map-projection");
+      KMLDriverConfiguration.I18N.get("choose-map-projection");
   private static final String FIRST_CHOICE =
-      i18n.get("lat-long");
+      KMLDriverConfiguration.I18N.get("lat-long");
   private static final String MISSING_RESOURCE =
-      i18n.get("missing-projection-file");
+      KMLDriverConfiguration.I18N.get("missing-projection-file", PROJECTION_FILE_NAME);
 
   public static String KMLDESCRIPTION_WGS84 = "KML 2.0";
   public static String KMLDESCRIPTION_UTM = "KML 2.0 (project to UTM)";
@@ -133,7 +132,7 @@ public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
             });
 
     projectionFile = context.getWorkbenchContext().getWorkbench()
-        .getPlugInManager().findFileOrFolderInExtensionDirs("kml-ProjectionStringsList.pjl");
+        .getPlugInManager().findFileOrFolderInExtensionDirs(PROJECTION_FILE_NAME);
 
   }
 

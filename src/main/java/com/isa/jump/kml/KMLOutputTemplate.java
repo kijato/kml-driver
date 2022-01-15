@@ -33,7 +33,7 @@
 
 //modeled after the GML output template code
 
-package com.isa.jump.plugin;
+package com.isa.jump.kml;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openjump</groupId>
   <artifactId>kml-driver</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
   <name>kml-driver</name>
   <description>Driver for KML file format</description>
 
@@ -13,6 +13,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- workaround, we need to use em here, so they are avail later during filtering -->
+    <version.string>${git.branch}-${git.build.time}-${git.commit.id.abbrev}</version.string>
   </properties>
 
   <repositories>
@@ -39,7 +41,44 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>com/isa/jump/kml/language/</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>io.github.git-commit-id</groupId>
+        <artifactId>git-commit-id-maven-plugin</artifactId>
+        <version>5.0.0</version>
+        <?m2e execute onConfiguration,onIncremental?>
+        <executions>
+          <!-- retrieve git revision information from local repo -->
+          <execution>
+            <id>fetch git properties of current branch</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <verbose>true</verbose>
+          <includeOnlyProperties>
+            <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+            <includeOnlyProperty>^git.build.(time|version|(number(|.unique)))$</includeOnlyProperty>
+            <includeOnlyProperty>^git.commit.(id.(abbrev|full)|message.short)$</includeOnlyProperty>
+            <includeOnlyProperty>^git.dirty$</includeOnlyProperty>
+          </includeOnlyProperties>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>

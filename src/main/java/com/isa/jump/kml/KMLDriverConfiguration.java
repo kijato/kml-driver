@@ -20,9 +20,8 @@
  *
  */
 
-package com.isa.jump.plugin;
+package com.isa.jump.kml;
 
-import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.plugin.Extension;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
@@ -33,17 +32,17 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class KMLDriverConfiguration extends Extension {
 
-  private final I18N i18n = I18N.getInstance("com.isa.jump.plugin");
+  public static final com.vividsolutions.jump.I18N I18N = com.vividsolutions.jump.I18N.getInstance("com.isa.jump.kml");
 
   public void configure(PlugInContext context) {
     new KMLDataSourceQueryChooserInstallerPlugIn().initialize(context);
   }
 
   public String getName() {
-    return i18n.get("driver-name");
+    return I18N.get("driver-name");
   }
 
   public String getVersion() {
-    return i18n.get("driver-version") + " (" + i18n.get("driver-date") + ")";
+    return I18N.get("driver-version");
   }
 }
