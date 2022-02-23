@@ -57,13 +57,13 @@ import com.vividsolutions.jump.workbench.ui.MultiInputDialog;
 public class KMLDataSourceQueryChooserInstallerPlugIn extends AbstractPlugIn {
 
   private static final String PROJECTION_FILE_NAME  = "kml-ProjectionStringsList.pjl";
-  
+
   private static final String MAP_PROJECTION =
       KMLDriverConfiguration.I18N.get("map-projection");
   private static final String CHOOSE_MAP_PROJECTION =
       KMLDriverConfiguration.I18N.get("choose-map-projection");
   private static final String FIRST_CHOICE =
-      KMLDriverConfiguration.I18N.get("lat-long");
+      KMLDriverConfiguration.I18N.get("lat-lon");
   private static final String MISSING_RESOURCE =
       KMLDriverConfiguration.I18N.get("missing-projection-file", PROJECTION_FILE_NAME);
 
